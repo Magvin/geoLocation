@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+    <div class="row row--no-margin row--no-margin-bottom">
+        <div class="xs-col-4">
+        <div class="oc-content__item oc-content__item--with-border-right icon__triangle-down--dark">
+        <select name="franchise" id="franchiseBB" class="oc-content__item--with-icon">
+        <option value="">All manufacturers</option>
+        <optgroup class="option-group" label="Bristol Street Brands">
+        <option make_citroen="" value="citroen">Citroen</option>
+        <option cupra="" value="cupra">CUPRA</option>
+        <option make_dacia="" value="dacia">Dacia</option>
+        <option make_ds="" value="ds">DS</option>
+        <option make_ford="" value="ford">Ford</option>
+        <option value="group fleet" make_group_fleet="">Group Fleet</option>
+        <option make_hyundai="" value="hyundai">Hyundai</option>
+        <option make_jeep="" value="jeep">Jeep</option>
+        <option make_mazda="" value="mazda">Mazda</option>
+        <option make_nissan="" value="nissan">Nissan</option>
+        <option make_peugeot="" value="peugeot">Peugeot</option>
+        <option make_renault="" value="renault">Renault</option>
+        <option make_seat="" value="seat">SEAT</option>
+        <option make_skoda="" value="skoda">Skoda</option>
+        <option make_toyota="" value="toyota">Toyota</option>
+        <option make_used_cars="" value="used cars">Used Cars</option>
+        <option make_vauxhall="" value="vauxhall">Vauxhall</option>
+        <option make_volvo="" value="volvo">Volvo</option>
+        <option value="versa" make_versa="">Bristol Street Versa</option>
+        </optgroup>
+        <optgroup class="option-group" label="Specialist Brands">
+        <option make_audi="" value="audi">Hereford Audi</option>
+        <option make_honda="" value="honda">Vertu Honda</option>
+        <option make_jaguar="" value="jaguar">Farnell Jaguar</option>
+        <option make_land_rover="" value="land rover">Farnell Land Rover</option>
+        <option make_mercedes-benz="" value="mercedes-benz">Vertu Mercedes-Benz</option>
+        <option make_smart="" value="smart">smart at Vertu Mercedes-Benz</option>
+        <option make_volkswagen="" value="volkswagen">Vertu Volkswagen</option>
+        </optgroup>
+        </select>
+        </div>
+        </div>
+        <div class="xs-col-6">
+        <div class="oc-content__item oc-content__item--middle">
+        <input name="Postcode" value="" type="text" id="Postcode" placeholder="Search by postcode or location">
+        <input type="hidden" id="GazRef" name="GazRef" value="">
+        <input type="hidden" id="facs" name="facilities" value="">
+        <div class="oc-content__dropdown background--white hide__default" id="popupList"></div>
+        </div>
+        </div>
+        <div class="xs-col-2 border__radius--right background--white">
+        <div class="oc-content__item search__icon--mobile">
+        <input type="submit" value="Search" class="btn btn--primary">
+        
+        </div>
+        </div>
+        </div>
+
+  <style>
+    html {
+      font-size: 100px;
+    }
+    
+   
+  </style>
+  <script>
+    let postcodes = document.querySelector('#Postcode')
+    console.log(postcodes.value)
+    navigator.geolocation.getCurrentPosition(
+      (data) => {
+        const cords = data.coords;
+       fetch(`https://api.postcodes.io/postcodes?lon=${cords.longitude}&lat=${cords.latitude}`)
+      .then(response=>response.json())
+      .then(json=>{
+        postcodes.value = json.result[0].postcode
+      })
+      }
+    );
+  </script>
+</body>
+</html>
